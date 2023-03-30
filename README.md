@@ -47,3 +47,28 @@ You can also target only right clicks:
 @click`.prevent` for prevent default
 
 `@click.prevent.stop` You can chain as many of these modifiers as you want in Vue.js
+
+### Events and Methods: Making a Form
+```
+<form @submit.prevent="handleSubmit">
+```
+this is just shorthand for `e.preventDefault()`
+instead of writing it like this:
+```
+methods: {
+  handleSubmit() {
+    e.preventDefault()
+    console.log('submitted')
+  }
+}
+```
+
+## Other notes
+eslint had issues in an open-source project code I was working on, having to do with [vue/max-attributes-per-line](https://eslint.vuejs.org/rules/max-attributes-per-line.html)
+[Eslint.org docs](https://eslint.org/docs/latest/use/command-line-interface#--fix)
+
+This command fixes it, just have the file name after `--fix`:
+```
+npx eslint --fix src/components/TakeAction.vue
+npx eslint --fix src/components/SignupButton.vue
+```

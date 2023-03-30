@@ -22,16 +22,18 @@
 	[v-cloak] {
 		display: none;
 	}
+	input {
+		margin: 10px;
+		display: block;
+	}
   </style>
 
 </head>
 <body>
 	<!-- v-cloak hides everything until the entire vue page has loaded, so you don't get a blinking version of the code while its loading -->
   <div id="app" v-cloak >
-	<!-- double mustache syntax, double curly braces -->
-    {{ greeting }}
-		<!-- keyboard event @keyup -->
-		<input @keyup.enter="greet" v-model="greeting" />
+		<!-- add a custom tag, as a vue component called `login-form` -->
+		<login-form />
 
 		<hr />
 		<!-- on:click, with toggle button with !isVisible -->
@@ -55,19 +57,44 @@
 			}
 		},
 		methods: {
-			// using the method shorthand syntax
 			toggleBox() {
-				// use `this` to use `isVisible`
-				// vuejs puts all methods in variables on the `this` context so they're available anywhere in the Vue application.
 				// the toggleBox method is now available anywhere in the Vue.js template
 				this.isVisible = !this.isVisible
-			},
+			}, 
 			greet() {
 				console.log(this.greeting)
 			}
 		}
 	})
-    app.mount('#app')
+	// takes two arguments: (name of component I'm going to use, options object)
+	// this can use any of the same options that we put in the code above, such as data, methods, etc.
+	// define a template using graves, and can make it multi-line & passing in the HTML
+	// this is a self-contained component
+	app.component('login-form', { 
+		template: `
+			<form @submit.prevent="handleSubmit">
+				<h1>{{ title }}</h1>
+				<input type="email" v-model="email" />
+				<input type="password" v-model="password" />
+				<button>Log In</button>
+			</form>
+		`,
+		// any variables defined in data here has to be used inside its own template
+		data() {
+			return {
+				title: 'Login Form',
+				email: '',
+				password: ''
+			}
+		},
+		methods: {
+			handleSubmit() {
+				console.log(this.email, this.password)
+			}
+		}
+	})
+
+  app.mount('#app')
   </script>
 </body>
 </html>
