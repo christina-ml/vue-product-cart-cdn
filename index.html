@@ -30,13 +30,14 @@
   <div id="app" v-cloak >
 	<!-- double mustache syntax, double curly braces -->
     {{ greeting }}
-		<input v-model="greeting" />
+		<!-- keyboard event @keyup -->
+		<input @keyup.enter="greet" v-model="greeting" />
 
 		<hr />
 		<!-- on:click, with toggle button with !isVisible -->
 		<!-- <button v-on:click="isVisible = !isVisible">Toggle Box</button> -->
 		<!-- shorthand for `v-on:` -->
-		<button @click="toggleBox">Toggle Box</button>
+		<button @click.prevent.stop="toggleBox">Toggle Box</button>
 		<div v-if="isVisible" class="box"></div>
   </div>
 
@@ -54,11 +55,15 @@
 			}
 		},
 		methods: {
+			// using the method shorthand syntax
 			toggleBox() {
 				// use `this` to use `isVisible`
 				// vuejs puts all methods in variables on the `this` context so they're available anywhere in the Vue application.
 				// the toggleBox method is now available anywhere in the Vue.js template
 				this.isVisible = !this.isVisible
+			},
+			greet() {
+				console.log(this.greeting)
 			}
 		}
 	})
