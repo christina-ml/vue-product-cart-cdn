@@ -36,20 +36,29 @@
 		<!-- on:click, with toggle button with !isVisible -->
 		<!-- <button v-on:click="isVisible = !isVisible">Toggle Box</button> -->
 		<!-- shorthand for `v-on:` -->
-		<button @click="isVisible = !isVisible">Toggle Box</button>
+		<button @click="toggleBox">Toggle Box</button>
 		<div v-if="isVisible" class="box"></div>
   </div>
 
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script>
-    // Creates Vue Application
+  // Creates Vue Application
 	// options object
+	// another key called methods
+	// methods is an object of functions (can put as many functions as you want, to be able to use them in your Vue.js application.)
     let app = Vue.createApp({
 		data: function() {
 			return {
 				greeting: 'Hello Vue 3!',
 				isVisible: false,
-		
+			}
+		},
+		methods: {
+			toggleBox() {
+				// use `this` to use `isVisible`
+				// vuejs puts all methods in variables on the `this` context so they're available anywhere in the Vue application.
+				// the toggleBox method is now available anywhere in the Vue.js template
+				this.isVisible = !this.isVisible
 			}
 		}
 	})
